@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 
 const FooterWrapper = styled.footer`
-  height: 130px;
+  height: 160px; // responsiveness questionable 
   width: 100%;
   display: grid;
   place-items: center;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 14px;
   color: #004c93;
 `;

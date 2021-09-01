@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useStateValue } from '../StateProvider';
+import { IoCalculatorOutline } from 'react-icons/io5';
 
 const InputsWrapper = styled.div`
   height: 100%;
@@ -11,6 +12,9 @@ const InputsWrapper = styled.div`
     align-items: center;
     margin-top: 130px;
     button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       height: 30px;
       width: 130px;
       margin-bottom: 5px;
@@ -26,6 +30,10 @@ const InputsWrapper = styled.div`
         background-color: #fff;
       }
     }
+    .calc-btn-icon {
+      font-size: 20px;
+      margin-left: 5px;
+    }
   }
   .inputs-flex {
     display: flex;
@@ -36,6 +44,7 @@ const InputsWrapper = styled.div`
       border-radius: 5px;
       border: 1px solid gray;
       outline: none;
+      color: #222;
       font-size: 28px;
       text-transform: capitalize;
       text-align: center;
@@ -46,35 +55,48 @@ const InputsWrapper = styled.div`
       cursor: pointer;
       text-transform: capitalize;
       text-align: center;
+      margin: 0 5px;
     }
   }
 `;
 
 const Inputs = () => {
-  const [{ resultsHistory }, dispatch] = useStateValue();
+  const [{}, dispatch] = useStateValue();
+  const [operation, setOperation] = useState('+');
+  const [value1, setValue1] = useState(null);
+  const [value2, setValue2] = useState(null);
 
-  const testDispatch = (e) => {
+  const operationAction = 'OPERATION_' + operation.toUpperCase();
+
+  const operationDispatch = (e) => {
     e.preventDefault();
     dispatch({
-      action: 'TESTING',
-      payload: null,
+      type: operationAction,
+      payload: [value1, value2],
     });
-    console.log(resultsHistory);
   };
+  const selectOperation = (e) => {
+    const operationSelectedByUser = e.target.value;
+    setOperation(operationSelectedByUser);
+  };
+
   return (
     <InputsWrapper>
       <div className='inputs'>
         <div className='inputs-flex'>
-          <input type='text' />
-          <select name='operations' id='operations'>
+          <input type='text' onChange={(e) => setValue1(e.target.value)} />
+          <select name='operations' id='operations' onChange={selectOperation}>
             <option value='+'>+</option>
             <option value='/'>/</option>
             <option value='%'>%</option>
             <option value='prime'>prime</option>
           </select>
-          <input type='text' />
+          <input type='text' onChange={(e) => setValue2(e.target.value)} />
         </div>
-        <button onClick={testDispatch}>calculate</button>
+        <button onClick={operationDispatch} disabled={!value1 || !value2}>
+          calculate
+          <IoCalculatorOutline className='calc-btn-icon' />
+        </button>
       </div>
     </InputsWrapper>
   );
