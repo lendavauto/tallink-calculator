@@ -1,0 +1,4 @@
+// setup json object
+{
+"presets": ["@babel/preset-env", "@babel/preset-react"]
+}
