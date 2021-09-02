@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import { useStateValue } from '../StateProvider';
 import { IoCalculatorOutline } from 'react-icons/io5';
@@ -66,8 +66,10 @@ const InputsWrapper = styled.div`
 const Inputs = () => {
   const [{}, dispatch] = useStateValue();
   const [operation, setOperation] = useState('+');
-  const [value1, setValue1] = useState(null);
-  const [value2, setValue2] = useState(null);
+  const [value1, setValue1] = useState('');
+  const [value2, setValue2] = useState('');
+  const inputField1 = useRef(0);
+  const inputField2 = useRef(0);
 
   const operationAction = 'OPERATION_' + operation.toUpperCase();
 
@@ -77,24 +79,47 @@ const Inputs = () => {
       type: operationAction,
       payload: [value1, value2],
     });
+    setValue1('');
+    setValue2('');
+    inputField1.current.value = '';
+    inputField2.current.value = '';
   };
   const selectOperation = (e) => {
     const operationSelectedByUser = e.target.value;
     setOperation(operationSelectedByUser);
   };
 
+  const onChange = (e, inputNr) => {
+    const re = /^[0-9\b]+$/;
+    if (e.target.value === '' || re.test(e.target.value)) {
+      if (inputNr === 1) {
+        setValue1(e.target.value);
+      }
+      if (inputNr === 2) {
+        setValue2(e.target.value);
+      }
+    }
+  };
   return (
     <InputsWrapper>
       <div className='inputs'>
         <div className='inputs-flex'>
-          <input type='text' onChange={(e) => setValue1(e.target.value)} />
+          <input
+            type='text'
+            onChange={(e) => onChange(e, 1)}
+            ref={inputField1}
+          />
           <select name='operations' id='operations' onChange={selectOperation}>
             <option value='+'>+</option>
             <option value='/'>/</option>
             <option value='%'>%</option>
             <option value='prime'>prime</option>
           </select>
-          <input type='text' onChange={(e) => setValue2(e.target.value)} />
+          <input
+            type='text'
+            onChange={(e) => onChange(e, 2)}
+            ref={inputField2}
+          />
         </div>
         <button onClick={operationDispatch} disabled={!value1 || !value2}>
           calculate

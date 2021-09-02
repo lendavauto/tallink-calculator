@@ -1,19 +1,39 @@
 {
   "name": "tallink-calculator",
+  "jest": {
+    "verbose": true,
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "moduleDirectories": [
+      "node_modules"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/?!(react-icons)"
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
+    },
+    "testEnvironment": "@testing-library/jest-dom"
+  },
   "version": "1.0.0",
   "description": "calculator app",
   "main": "index.js",
   "scripts": {
     "start": "webpack serve --mode development --open --hot",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "test": "jest"
   },
   "author": "andreas aus",
   "license": "ISC",
   "dependencies": {
+    "@testing-library/react": "^12.0.0",
     "favicons-webpack-plugin": "^5.0.2",
     "node-polyfill-webpack-plugin": "^1.1.4",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "react-icons": "^4.2.0",
     "shortid": "^2.2.16",
     "styled-components": "^5.2.3"
@@ -22,12 +42,20 @@
     "@babel/core": "^7.13.10",
     "@babel/preset-env": "^7.13.10",
     "@babel/preset-react": "^7.12.13",
+    "@testing-library/jest-dom": "^5.14.1",
     "babel-core": "^6.26.3",
+    "babel-jest": "^27.1.0",
     "babel-loader": "^8.2.2",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "file-loader": "^6.2.0",
+    "global-jsdom": "^8.2.0",
     "html-webpack-plugin": "^5.3.1",
+    "jest": "^27.1.0",
+    "jsdom": "^16.7.0",
+    "react-test-renderer": "^17.0.2",
+    "style-loader": "^3.2.1",
+    "url-loader": "^4.1.1",
     "webpack": "^5.24.4",
     "webpack-cli": "^4.5.0",
     "webpack-dev-server": "^3.11.2"
