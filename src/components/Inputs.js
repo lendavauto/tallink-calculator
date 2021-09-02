@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import styled from 'styled-components';
 import { useStateValue } from '../StateProvider';
 import { IoCalculatorOutline } from 'react-icons/io5';
@@ -11,6 +11,9 @@ const InputsWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     margin-top: 130px;
+    @media (max-width: 768px) {
+      margin-top: 5px;
+    }
     button {
       display: flex;
       align-items: center;
