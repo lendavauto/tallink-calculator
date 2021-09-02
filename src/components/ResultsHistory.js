@@ -66,7 +66,6 @@ const ResultsHistory = () => {
       </div>
       <div className='overflow'>
         {resultsHistory.map((item) => {
-          console.log(item);
           return (
             <p key={shortid.generate()} className='history-result'>
               {item}
